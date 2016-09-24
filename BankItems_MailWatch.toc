@@ -1,0 +1,15 @@
+## Interface: 70000
+## Title: BankItems_MailWatch
+## Notes: BankItems plugin to watch mail expiration times across all your toons.
+## Version: 1.0.1
+## Author: Septh
+## SavedVariables:
+## Dependencies: BankItems
+## OptionalDeps: !Swatter, !BugGrabber
+
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+Libs\LibQTip-1.0\LibQTip-1.0.lua
+
+biMailWatch.lua
