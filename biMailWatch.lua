@@ -135,7 +135,7 @@ function LBO:OnEnter()
 				txt = (lft < 24*60*60*5 and ORANGE_FONT_COLOR_CODE or GREEN_FONT_COLOR_CODE) .. SecondsToTime(lft, true) .. FONT_COLOR_CODE_CLOSE
 			end
 
-			tooltip:AddLine(factionIcons[ v['fct'] ] .. NORMAL_FONT_COLOR_CODE .. v['who'] .. FONT_COLOR_CODE_CLOSE, v['num'], txt)
+			tooltip:AddLine('  ' .. factionIcons[ v['fct'] ] .. NORMAL_FONT_COLOR_CODE .. v['who'] .. FONT_COLOR_CODE_CLOSE, v['num'], txt)
 		end
 	else
 		tooltip:AddLine()
