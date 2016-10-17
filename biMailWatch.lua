@@ -11,7 +11,7 @@ local factionIcons = {
 ------------------------------------------------------------------------
 -- Table Pool for recycling tables - borrowed from BankItems.lua
 ------------------------------------------------------------------------
-local tablePool = setmetatable({}, {__mode = "kv"}) -- Weak table
+local tablePool = setmetatable({}, { __mode = "kv" }) -- Weak table
 
 -- Get a new table
 local function newTable()
@@ -48,7 +48,14 @@ local LBO = LibStub("LibDataBroker-1.1"):NewDataObject("BankItems_MailWatch", {
 		text = "Mail",
 })
 
-assert(LBO, "BI_MailWatch: Couldn't find LibDataBroker")
+assert(LBO, "BI_MailWatch: Couldn't use LibDataBroker")
+
+local highlightFrame = CreateFrame('Frame')
+highlightFrame:Hide()
+
+local highlightTexture = highlightFrame:CreateTexture(nil, 'OVERLAY')
+highlightTexture:SetTexture('Interface\\QuestFrame\\UI-QuestTitleHighlight')
+highlightTexture:SetBlendMode('ADD')
 
 ------------------------------------------------------------------------
 -- Créée le tooltip
@@ -60,11 +67,22 @@ local tooltip
 -- Affiche le tooltip
 ------------------------------------------------------------------------
 function LBO:OnLeave()
+
+	-- Masque le surlignage
+	highlightTexture:Hide()
+	highlightTexture:SetParent(highlightFrame)
+
+	-- Masque le tooltip
 	tooltip:Hide()
 	libqtip:Release(tooltip)
 end
 
 function LBO:OnEnter()
+
+	-- Surligne l'icône LDB
+	highlightTexture:SetParent(self)
+	highlightTexture:SetAllPoints()
+	highlightTexture:Show()
 
 	-- Lit les éléments du courrier dans les données de BankItems
 	local data = newTable()
@@ -89,7 +107,7 @@ function LBO:OnEnter()
 						entry['exp'] = math.min(entry['exp'], mails[i]['expiry'] or 0)
 					end
 				end
-				tinsert(data, entry)
+				table.insert(data, entry)
 			end
 		end
 	end
