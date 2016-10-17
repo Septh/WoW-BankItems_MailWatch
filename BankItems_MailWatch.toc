@@ -2,7 +2,7 @@
 ## Title: BankItems_MailWatch
 ## Notes: BankItems plugin to watch mail expiration times across all your toons.
 ## Notes-frFR: Plugin pour BankItems qui montre le courrier présent dans les boîtes à lettres de tous vos persos.
-## Version: 1.0.1
+## Version: 1.0.2
 ## Author: Septh
 ## SavedVariables:
 ## Dependencies: BankItems
