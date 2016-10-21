@@ -12,7 +12,7 @@ Note: this will only work with mail already known by BankItems. Mail sent to you
 I rarely read comments here on Curse.com; should you need any help, you'd better open an issue on [GitHub](https://github.com/Septh/WoW-BankItems_MailWatch "GitHub repository"), where the projet lives.
 
 
-##Release notes
+##Change Log
 Version 1.0.2 - 10/17/2016
 * Highlight LDB frame on show tooltip
 
