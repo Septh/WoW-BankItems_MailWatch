@@ -76,13 +76,13 @@ function LBO:OnLeave()
 	libqtip:Release(tooltip)
 end
 
-function LBO:OnEnter(LDBFrame)
+function LBO:OnEnter()
 
-	-- Surligne l'icône LDB, sauf avec Bazooka
-	local LDBFrameName = LDBFrame:GetName() or ''
-	if not LDBFrameName:find('Bazooka', 1) then
+	-- Surligne l'icône LDB
+	local fname = self:GetName() or ''
+	if not fname:find('Bazooka', 1) then
 		highlightTexture:SetParent(self)
-		highlightTexture:SetAllPoints()
+		highlightTexture:SetAllPoints(self)
 	end
 
 	-- Lit les éléments du courrier dans les données de BankItems
