@@ -16,13 +16,15 @@ I rarely read comments here on Curse.com; should you need any help, you'd better
 
 ## Change Log
 
-* Version 1.0.3 - 10/26/2016
+* Version 1.0.4 - 2016/10/26
+	* Don't highlight the LDB frame if the display is Bazooka
+* Version 1.0.3 - 2016/10/26
 	* Toc update for 7.1
-* Version 1.0.2 - 10/17/2016
+* Version 1.0.2 - 2016/10/17
 	* Highlight LDB frame on show tooltip
-* Version 1.0.1 - 09/24/2016
+* Version 1.0.1 - 2016/09/24
 	* Updated for Legion
-* Version 1.0.0 - 11/12/2015
+* Version 1.0.0 - 2015/11/12
 	* Initial release
 
 ## Licence

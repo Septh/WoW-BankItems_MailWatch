@@ -69,7 +69,6 @@ local tooltip
 function LBO:OnLeave()
 
 	-- Masque le surlignage
-	highlightTexture:Hide()
 	highlightTexture:SetParent(highlightFrame)
 
 	-- Masque le tooltip
@@ -77,12 +76,14 @@ function LBO:OnLeave()
 	libqtip:Release(tooltip)
 end
 
-function LBO:OnEnter()
+function LBO:OnEnter(LDBFrame)
 
-	-- Surligne l'icône LDB
-	highlightTexture:SetParent(self)
-	highlightTexture:SetAllPoints()
-	highlightTexture:Show()
+	-- Surligne l'icône LDB, sauf avec Bazooka
+	local LDBFrameName = LDBFrame:GetName() or ''
+	if not LDBFrameName:find('Bazooka', 1) then
+		highlightTexture:SetParent(self)
+		highlightTexture:SetAllPoints()
+	end
 
 	-- Lit les éléments du courrier dans les données de BankItems
 	local data = newTable()
