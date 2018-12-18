@@ -16,6 +16,10 @@ I rarely read comments here on Curse.com; should you need any help, you'd better
 
 ## Change Log
 
+* Version 1.0.6 - 2018/12/18
+	* Toc update for 8.1
+* Version 1.0.5 - 2018/07/21
+	* Toc update for 8.0
 * Version 1.0.4 - 2016/10/26
 	* Don't highlight the LDB frame if the display is Bazooka
 * Version 1.0.3 - 2016/10/26
