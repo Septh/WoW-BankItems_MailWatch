@@ -16,6 +16,8 @@ I rarely read comments here on Curse.com; should you need any help, you'd better
 
 ## Change Log
 
+* Version 1.0.7 - 2019/07/14
+	* Toc update for 8.2
 * Version 1.0.6 - 2018/12/18
 	* Toc update for 8.1
 * Version 1.0.5 - 2018/07/21
