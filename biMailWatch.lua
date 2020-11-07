@@ -1,18 +1,24 @@
+-- GLOBALS: LibStub
 
 -- Upvalues
--- GLOBALS: LibStub
-local CreateFrame = CreateFrame
+local _G = _G
+local string, table, math, time = string, table, math, time
+local type, next, pairs, ipairs, setmetatable = type, next, pairs, ipairs, setmetatable
+local strsplit = strsplit
+local time = time
+
 local SecondsToTime = SecondsToTime
-local UIParent = UIParent
+local UIParent, GameTooltipText = UIParent, GameTooltipText
 local NORMAL_FONT_COLOR_CODE, HIGHLIGHT_FONT_COLOR_CODE = NORMAL_FONT_COLOR_CODE, HIGHLIGHT_FONT_COLOR_CODE
 local RED_FONT_COLOR_CODE, GREEN_FONT_COLOR_CODE, ORANGE_FONT_COLOR_CODE = RED_FONT_COLOR_CODE, GREEN_FONT_COLOR_CODE, ORANGE_FONT_COLOR_CODE
 local FONT_COLOR_CODE_CLOSE = FONT_COLOR_CODE_CLOSE
 
 -- LDB lib and Object
-local LDBObj = LibStub('LibDataBroker-1.1'):NewDataObject("BankItems_MailWatch", {
-    type = "data source",
-    icon = "Interface\\Icons\\INV_Letter_15",
-    text = "Mail",
+local LDBObj = LibStub('LibDataBroker-1.1'):NewDataObject('BankItems_MailWatch', {
+    type  = 'data source',
+    icon  = 'Interface\\Icons\\INV_Letter_15',
+    label = 'BI MailWatch',
+    text  = 'Mail',
 })
 if not LDBObj then return end
 
@@ -22,9 +28,10 @@ highlightTexture:SetTexture('Interface\\QuestFrame\\UI-QuestTitleHighlight')
 highlightTexture:SetBlendMode('ADD')
 
 -- Misc
-local BI_MAIL_BAG = "Bag101"
+local BI_MAIL_BAG = 'Bag101'
+local THIRTY_DAYS = 24*24*60*30
 
-local tth = select(2, GameTooltipText:GetFontObject():GetFont())
+local tth = GameTooltipText and select(2, GameTooltipText:GetFontObject():GetFont()) or 12
 local factionIcons = {
     Alliance = ([[|TInterface\AddOns\BankItems_MailWatch\Faction-Alliance:%d:%d:0|t]]):format(tth, tth),
     Horde = ([[|TInterface\AddOns\BankItems_MailWatch\Faction-Horde:%d:%d:0|t]]):format(tth, tth)
@@ -42,11 +49,11 @@ local function newTable()
     return t
 end
 
--- Delete table and add it back to pool
+-- Delete table and add it back to the pool
 local function delTable(t)
-    if type(t) == "table" then
+    if type(t) == 'table' then
         for k, v in pairs(t) do
-            if type(v) == "table" then
+            if type(v) == 'table' then
                 delTable(v)
             end
             t[k] = nil
@@ -64,15 +71,17 @@ local emptyTable = {}
 ------------------------------------------------------------------------
 -- Tooltip handling
 ------------------------------------------------------------------------
-local libqtip = LibStub('LibQTip-1.0')
-local tooltip
+local libqtip, tooltip = LibStub('LibQTip-1.0'), nil
 
 function LDBObj:OnLeave()
     highlightTexture:Hide()
     highlightTexture:SetParent(UIParent)
 
-    tooltip:Hide()
-    libqtip:Release(tooltip)
+    if tooltip then
+        tooltip:Hide()
+        libqtip:Release(tooltip)
+    end
+    tooltip = nil
 end
 
 function LDBObj:OnEnter()
@@ -89,8 +98,8 @@ function LDBObj:OnEnter()
     local data = newTable()
     local BI   = _G.BankItems_Save or emptyTable
     for toon, items in pairs(BI) do
-        if type(items) == "table" and type(items[BI_MAIL_BAG]) == "table" then
-            local name, realm = strsplit("|", toon)
+        if type(items) == 'table' and type(items[BI_MAIL_BAG]) == 'table' then
+            local name, realm = strsplit('|', toon)
 
             local mails = items[BI_MAIL_BAG]
             local count = #mails
@@ -100,7 +109,7 @@ function LDBObj:OnEnter()
                 entry['who'] = name
                 entry['fct'] = items['faction']
                 entry['num'] = count
-                entry['exp'] = time() + 60*60*24*30;	-- 30 days
+                entry['exp'] = time() + THIRTY_DAYS
 
                 for i = 1, count do
                     if type(mails[i]['link']) == 'string' then
@@ -113,7 +122,7 @@ function LDBObj:OnEnter()
         end
     end
 
-    -- Trie le tout
+    -- Sort it all
     table.sort(data, function(c1, c2)
         -- Par royaume d'abord, dates ensuite
         if c1['rlm'] == c2['rlm'] then
@@ -124,20 +133,20 @@ function LDBObj:OnEnter()
     end)
 
     -- Remplit le tooltip
-    tooltip = libqtip:Acquire('BIMWTooltip', 3, "LEFT", "CENTER", "RIGHT")
+    tooltip = libqtip:Acquire('BIMWTooltip', 3, 'LEFT', 'CENTER', 'RIGHT')
     tooltip:SmartAnchorTo(self)
     tooltip:Hide()
     tooltip:Clear()
     tooltip:SetCellMarginV(2)
 
     -- Titre
-    tooltip:AddHeader()
-    tooltip:SetCell(1, 1, NORMAL_FONT_COLOR_CODE .. 'BI MailWatch' .. FONT_COLOR_CODE_CLOSE, nil, "CENTER", 3)
+    tooltip:AddLine()
+    tooltip:SetCell(1, 1, NORMAL_FONT_COLOR_CODE .. 'BI MailWatch' .. FONT_COLOR_CODE_CLOSE, nil, 'CENTER', 3)
 
     -- Contenu
     if #data > 0 then
         tooltip:AddLine('')
-        tooltip:AddLine("Name", "# objects", "Delay")
+        tooltip:AddLine('Name', '# objects', 'Delay')
         tooltip:AddSeparator(); tooltip:AddLine('')
 
         local rlm
@@ -151,7 +160,7 @@ function LDBObj:OnEnter()
             local lft = v['exp'] - time()
             local txt
             if lft < 0 then
-                txt = RED_FONT_COLOR_CODE .. "Lost mail!" .. FONT_COLOR_CODE_CLOSE
+                txt = RED_FONT_COLOR_CODE .. 'Lost mail!' .. FONT_COLOR_CODE_CLOSE
             else
                 txt = (lft < 24*60*60*5 and ORANGE_FONT_COLOR_CODE or GREEN_FONT_COLOR_CODE) .. SecondsToTime(lft, true) .. FONT_COLOR_CODE_CLOSE
             end
@@ -160,7 +169,7 @@ function LDBObj:OnEnter()
         end
     else
         tooltip:AddLine('')
-        tooltip:SetCell(2, 1, HIGHLIGHT_FONT_COLOR_CODE .. 'No pending mail.' .. FONT_COLOR_CODE_CLOSE, nil, "CENTER", 3)
+        tooltip:SetCell(2, 1, HIGHLIGHT_FONT_COLOR_CODE .. 'No pending mail.' .. FONT_COLOR_CODE_CLOSE, nil, 'CENTER', 3)
     end
 
     tooltip:Show()

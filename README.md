@@ -16,6 +16,9 @@ I rarely read comments here on Curse.com; should you need any help, you'd better
 
 ## Change Log
 
+* Version 1.0.8 - 2020/11/07
+	* Toc update for 9.1
+	* Update LibQTip to latest release (9.0.1.2)
 * Version 1.0.7 - 2019/07/14
 	* Toc update for 8.2
 * Version 1.0.6 - 2018/12/18
@@ -40,7 +43,7 @@ BankItems_MailWatch is released under the [MIT licence](https://opensource.org/l
 
 ## Enjoy!
 
-Also check my other addons: [BagMeters](https://www.curse.com/addons/wow/bagmeters), [Broker: Cash](https://www.curse.com/addons/wow/broker_cash), [2048 for WoW](https://www.curse.com/addons/wow/wow2048).
+And check my other addons: [BagMeters](https://www.curse.com/addons/wow/bagmeters), [Broker: Cash](https://www.curse.com/addons/wow/broker_cash), [2048 for WoW](https://www.curse.com/addons/wow/wow2048).
 
 If you are an addon developer, also check my [WoW Bundle for vscode](https://marketplace.visualstudio.com/items?itemName=Septh.wow-bundle) extension which brings better Lua language support and WoW API highlighting to Visual Studio Code.
 
