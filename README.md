@@ -16,6 +16,8 @@ I rarely read comments here on Curse.com; should you need any help, you'd better
 
 ## Change Log
 
+* Version 1.0.9 - 2020/11/18
+	* Correctly calculate time before mail is returned
 * Version 1.0.8 - 2020/11/07
 	* Toc update for 9.0.1
 	* Update LibQTip to latest release (9.0.1.2)

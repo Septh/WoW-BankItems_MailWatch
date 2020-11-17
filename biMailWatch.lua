@@ -29,7 +29,7 @@ highlightTexture:SetBlendMode('ADD')
 
 -- Misc
 local BI_MAIL_BAG = 'Bag101'
-local THIRTY_DAYS = 24*24*60*30
+local THIRTY_DAYS = 60*60*24*30     -- 30 days
 
 local tth = GameTooltipText and select(2, GameTooltipText:GetFontObject():GetFont()) or 12
 local factionIcons = {
